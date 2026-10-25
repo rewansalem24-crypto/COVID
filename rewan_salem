@@ -1,0 +1,40 @@
+select *
+from `Covid_data.CovidDeathsu1`
+order by  3,4;
+
+select *
+from `Data_vacaccences.CovidVaccinationsu1`
+order by  3,4;
+
+#show files
+select location, date, total_cases, new_cases, total_deaths, population,
+from `Covid_data.CovidDeathsu1`
+order by  1,2;
+
+#comparison between total_cases vs total_deaths
+select total_cases, total_deaths, (total_deaths/total_cases)*100 as Deathpercentage
+from `Covid_data.CovidDeathsu1`
+where location like 'United States'
+order by  1,2;
+
+#total_cases vs population by percentage
+select  date, population, location, total_cases, (total_cases/population)*100 as Deathpercentageinfection
+from `Covid_data.CovidDeathsu1`
+where location like 'United States'
+order by  1,2;
+
+#high infection countries
+select  date, population, location, max(total_cases)as highestinfectioncount, max(total_cases/population)*100 as Deathpercentageinfection
+from `Covid_data.CovidDeathsu1`
+where location like 'United States'
+group by date, population, location
+order by Deathpercentageinfection desc;
+
+#Count death vs population
+select location, max(total_deaths) as totaldeathcount
+from `Covid_data.CovidDeathsu1`
+group by location
+order by totaldeathcount desc;
+
+
+
